@@ -3,9 +3,10 @@ import React, { useState, useContext, useEffect } from "react";
 import GuestContext from "../../context/guestcontext/guestContext";
 
 const Guestform = () => {
-  const { addGuest, editAble, updateGuest, clearEdit } = useContext(
-    GuestContext
-  );
+  
+  const { addGuest, editAble, updateGuest, clearEdit,errors } = useContext(GuestContext);
+
+
   useEffect(() => {
     if (editAble !== null) {
       setGuest(editAble);
@@ -14,21 +15,26 @@ const Guestform = () => {
         name: "",
         phone: "",
         dietary: "Non-Veg",
+        note:"",
       });
     }
   }, [editAble]);
+
+
   const [guest, setGuest] = useState({
     name: "",
     phone: "",
     dietary: "Non-Veg",
+    note:"",
   });
 
-  const { name, phone, dietary } = guest;
+  const { name, phone, dietary,note } = guest;
 
   const handleChange = (e) => {
     setGuest({
       ...guest,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value, 
+      
     });
   };
   const onsubmit = (e) => {
@@ -37,11 +43,12 @@ const Guestform = () => {
       updateGuest(guest);
       clearEdit();
     } else {
-      addGuest(guest);
+      addGuest(guest); 
       setGuest({
         name: "",
         phone: "",
         dietary: "Non-Veg",
+        note:"",
       });
     }
   };
@@ -57,13 +64,20 @@ const Guestform = () => {
           placeholder="Name"
           name="name"
           value={name}
-          onChange={handleChange}
+          onChange={handleChange} 
         />
         <input
           type="text"
           placeholder="Phone"
           name="phone"
           value={phone}
+          onChange={handleChange}
+        />
+         <input
+          type="text"
+          placeholder="Note"
+          name="note"
+          value={note}
           onChange={handleChange}
         />
         <p className="options-label">Dietary</p>

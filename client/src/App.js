@@ -27,6 +27,7 @@ function App() {
             </Switch>
           </div>
         </Router>
+        
       </GuestState>
     </AuthState>
   );

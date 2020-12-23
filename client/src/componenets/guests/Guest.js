@@ -3,10 +3,10 @@ import GuestContext from '../../context/guestcontext/guestContext'
 
 const Guest = ({guest}) => {
   const{removeGuest,updateGuest,editGuest} = useContext(GuestContext)
-  const {_id,name,phone,dietary,isconfirmed} = guest
+  const {_id,name,phone,dietary,isconfirmed,note} = guest
   const handleRemove = () => {
     removeGuest(_id)
-  }
+  } 
   const handleIsconfirmed = () => {
     updateGuest({...guest, isconfirmed: !isconfirmed})
   }
@@ -36,6 +36,10 @@ const Guest = ({guest}) => {
         <div className="contact">
           <i className="fas fa-phone-alt" />
   <p>{phone}</p>
+  
+        </div>
+        <div>
+        <p>Note :{note}</p>
         </div>
       </div>
     </div>

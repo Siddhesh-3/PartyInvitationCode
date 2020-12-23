@@ -1,7 +1,10 @@
 import React,{useContext} from 'react'
 import GuestContext from "../../context/guestcontext/guestContext"
+
 export const Guestfilter = () => {
+
   const {toggleFilter} = useContext(GuestContext)
+  
     return (
         <div className="toggle">
       <label className="switch">

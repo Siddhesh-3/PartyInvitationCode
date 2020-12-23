@@ -5,13 +5,13 @@ const { check, validationResult } = require("express-validator");
 
 const Guest = require("../models/Guest");
 
-router.get("/", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => { 
   try {
     const guests = await Guest.find({ user: req.user.id });
     res.json(guests);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Servor Error");
+    res.status(500).send("Server Error");
   }
 });
 
@@ -22,13 +22,17 @@ router.post(
   [
     check("name", "Please provide name").not().isEmpty(),
     check("phone", "Please Provide phone").not().isEmpty(),
+    
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: errors.array() });
     }
-    const { name, phone, dietary, isconfirmed } = req.body;
+
+    
+    // console.log(req.body);
+    const { name, phone, dietary, isconfirmed,note } = req.body;
     try {
       let guest = new Guest({
         user: req.user.id,
@@ -36,6 +40,7 @@ router.post(
         phone,
         dietary,
         isconfirmed,
+        note,
       });
 
       guest = await guest.save();
@@ -63,8 +68,8 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-  const { name, phone, dietary, isconfirmed } = req.body;
-  const updatedGuest = { name, phone, dietary, isconfirmed };
+  const { name, phone, dietary, isconfirmed,note } = req.body;
+  const updatedGuest = { name, phone, dietary, isconfirmed,note };
   try {
     let guest = await Guest.findById(req.params.id);
     if (!guest) {

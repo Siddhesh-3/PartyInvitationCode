@@ -7,12 +7,16 @@ user: {
 },
 name:{
     type:String,
-    required:true
+    required:true,
 },
 phone :{  
     type:String,
     required:true,
    
+},
+note:{
+    type:String,
+    default:'-',
 },
 dietary :{  
     type:String,
@@ -22,9 +26,10 @@ dietary :{
 },
 isconfirmed:{
     type:Boolean,
-    default:false
+    default:false,
    
 }
+
 })
 
 module.exports = mongoose.model('guest',guestSchema)
